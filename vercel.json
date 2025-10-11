@@ -12,6 +12,13 @@
     {
       "src": "/.*",
       "dest": "dist/echo-spotify/index.html"
+    },
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/(.*)", "dest": "/dist/echo-spotify/$1" }
+  ],
+  "functions": {
+    "api/**/*.ts": {
+      "runtime": "vercel-node@3"
     }
-  ]
+  }
 }
