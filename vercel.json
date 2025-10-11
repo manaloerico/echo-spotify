@@ -1,10 +1,9 @@
 {
   "builds": [
-    { "src": "api/**/*.ts", "use": "@vercel/node" },
-    { "src": "dist/echo-spotify/**", "use": "@vercel/static" }
+    { "src": "dist/echo-spotify/index.html", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/(.*)", "dest": "/dist/echo-spotify/$1" }
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "dist/echo-spotify/index.html" }
   ]
 }
