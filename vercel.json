@@ -1,24 +1,7 @@
 {
-  "builds": [{ "src": "dist/echo-spotify/**", "use": "@vercel/static" }],
   "routes": [
-    {
-      "src": "/assets/(.*)",
-      "dest": "dist/echo-spotify/assets/$1"
-    },
-    {
-      "src": "/(.*)\\.(js|css|ico|png|jpg|jpeg|svg|webp|woff2?)",
-      "dest": "dist/echo-spotify/$1.$2"
-    },
-    {
-      "src": "/.*",
-      "dest": "dist/echo-spotify/index.html"
-    },
     { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/(.*)", "dest": "/dist/echo-spotify/$1" }
-  ],
-  "functions": {
-    "api/**/*.ts": {
-      "runtime": "vercel-node@3"
-    }
-  }
+    { "handle": "filesystem" },
+    { "src": "/.*", "dest": "/dist/echo-spotify/index.html" }
+  ]
 }
