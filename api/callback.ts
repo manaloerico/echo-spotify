@@ -34,7 +34,7 @@ export default async (req: any, res: any) => {
     const data: any = await tokenResponse.json();
     // data contains: access_token, refresh_token, expires_in, token_type
     // res.status(200).json(data);
-    res.redirect(`${frontend_uri}?access_token=${data['access_token']}`);
+    Response.redirect(`${frontend_uri}?access_token=${data['access_token']}`);
   } catch (err: any) {
     res.status(500).json({ error: err.message || 'Internal Server Error' });
   }
