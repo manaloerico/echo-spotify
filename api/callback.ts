@@ -7,8 +7,10 @@ export default async (req: any, res: any) => {
 
   const client_id = process.env['SPOTIFY_CLIENT_ID']!;
   const client_secret = process.env['SPOTIFY_CLIENT_SECRET']!;
-  const redirect_uri = process.env['SPOTIFY_REDIRECT_URI']!;
-  const frontend_uri = process.env['SPOTYFILE_FRONTEND_URI']!;
+  const redirect_uri =
+    process.env['SPOTIFY_REDIRECT_URI'] || 'http://localhost:3000/api/callback';
+  const frontend_uri =
+    process.env['SPOTYFILE_FRONTEND_URI'] || 'http://localhost:4200';
   const creds = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
   console.log(client_id, client_secret, redirect_uri, frontend_uri, creds);
   try {
