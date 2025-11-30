@@ -7,7 +7,7 @@ export default async (req: any, res: any) => {
   const redirect_uri =
     process.env['SPOTIFY_REDIRECT_URI'] || 'http://localhost:3000/api/callback';
   const frontend_uri =
-    process.env['SPOTIFY_FRONTEND_URI'] || 'http://localhost:4200';
+    process.env['SPOTYFILE_FRONTEND_URI'] || 'http://localhost:4200';
 
   // Check state
   if (!state) {
