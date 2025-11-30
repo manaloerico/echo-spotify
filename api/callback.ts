@@ -1,6 +1,3 @@
-import fetch from 'node-fetch';
-import querystring from 'querystring';
-
 export default async (req: any, res: any) => {
   const code = req.query.code as string;
 
@@ -23,11 +20,11 @@ export default async (req: any, res: any) => {
           Authorization: `Basic ${creds}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: querystring.stringify({
+        body: new URLSearchParams({
           grant_type: 'authorization_code',
           code,
           redirect_uri,
-        }),
+        }).toString(),
       }
     );
 
