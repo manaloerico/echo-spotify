@@ -1,4 +1,8 @@
-export default async (req: any, res: any) => {
+export const config = {
+  runtime: 'edge',
+};
+
+export default async function handler(req: any, res: any) {
   const code = req.query.code as string | undefined;
   const state = req.query.state as string | undefined;
 
@@ -12,7 +16,7 @@ export default async (req: any, res: any) => {
   // Check state
   if (!state) {
     const params = new URLSearchParams({ error: 'state_mismatch' });
-    return res.redirect(`/#${params.toString()}`);
+    return Response.redirect(`/#${params.toString()}`);
   }
 
   if (!code) {
@@ -45,7 +49,7 @@ export default async (req: any, res: any) => {
     }
 
     // Redirect to frontend with tokens
-    return res.redirect(
+    return Response.redirect(
       `${frontend_uri}?access_token=${data.access_token}&refresh_token=${data.refresh_token}`
     );
   } catch (err: any) {
@@ -53,4 +57,4 @@ export default async (req: any, res: any) => {
       .status(500)
       .json({ error: err.message || 'Internal Server Error' });
   }
-};
+}
