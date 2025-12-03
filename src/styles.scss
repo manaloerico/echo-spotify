@@ -3,8 +3,18 @@
 
 html,
 body {
-    margin: 0;
     height: 100%;
-    overflow: hidden;
+    margin: 0;
     padding: 0;
+    font-family: 'SpotifyCircular', sans-serif;
+    overflow: hidden;
+    scroll-behavior: smooth;
+}
+
+.profile-image {
+    border-radius: var(--user-image-border-radius, 50%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: var(--user-image-size, 230px);
+    height: var(--user-image-size, 230px);
+    object-fit: cover;
 }

@@ -1,8 +1,31 @@
-<nav class="nav"><span>Spotify</span>
-    <ul>
-        <li><app-nav-bar-item>Profile</app-nav-bar-item></li>
-        <li><app-nav-bar-item>Recent</app-nav-bar-item></li>
+<nav class="nav">
+        <span>
+                <img class="nav__spotify-logo" src="assets/images/spotify_logo.svg" alt="Spotify Logo" />
+        </span>
+        <ul>
+                <li><app-nav-bar-item routerLink="/profile" label="Profile" routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }" [isActive]="selected === 'Profile'"
+                                (onItemClick)="onItemClick($event)"></app-nav-bar-item></li>
+                <li><app-nav-bar-item routerLink="/top-artists" routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }" label="Top Artists"
+                                [isActive]="selected === 'Top Artists'"
+                                (onItemClick)="onItemClick($event)"></app-nav-bar-item></li>
+                <li><app-nav-bar-item routerLink="/top-tracks" routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }" label="Top Tracks"
+                                [isActive]="selected === 'Top Tracks'"
+                                (onItemClick)="onItemClick($event)"></app-nav-bar-item></li>
+                <li><app-nav-bar-item routerLink="/recently-played" routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }" label="Recent"
+                                [isActive]="selected === 'Recent'"
+                                (onItemClick)="onItemClick($event)"></app-nav-bar-item></li>
+                <li><app-nav-bar-item routerLink="/playlist" routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }" label="Playlists"
+                                [isActive]="selected === 'Playlists'"
+                                (onItemClick)="onItemClick($event)"></app-nav-bar-item></li>
 
-    </ul><span>Github</span>
+        </ul>
+        <span>
+                <img class="nav__github-logo" src="assets/images/github_logo.svg" alt="Github Logo" />
+        </span>
 
 </nav>

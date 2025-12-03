@@ -1,7 +1,201 @@
-:host {
-    height: 10000px;
-}
+@import '../../ui/themes/mixins.scss';
 
-.a {
-    height: 1200px;
+.page {
+
+    @include md-max {
+        --h1-font-size: 30px;
+        --user-image-size: 150px;
+        --header-flex-direction: column;
+        --header-gap: 0px;
+        --user-details-align: center;
+        --user-stat-value-font-size: 20px;
+        --user-details-width: 100%;
+    }
+
+    &__header {
+        display: flex;
+        flex-direction: var(--header-flex-direction, row);
+        gap: var(--header-gap, 40px);
+        place-content: center;
+        align-items: center;
+    }
+
+    &__user-details {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        justify-content: space-between;
+        align-items: var(--user-details-align, flex-start);
+        width: var(--user-details-width, auto);
+    }
+
+    h1 {
+        font-size: var(--h1-font-size, 50px);
+        font-weight: 700;
+        margin-bottom: 0;
+
+
+    }
+
+    &__user-image {
+        --user-image-size: 230px;
+    }
+
+    &__user-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+
+    &__user-stat {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        font-size: 16px;
+        font-weight: 500;
+        gap: 5px;
+        text-transform: uppercase;
+
+        span {
+            font-size: var(--user-stat-value-font-size, 24px);
+            font-weight: 700;
+            color: var(--primary-color, #1DB954);
+        }
+    }
+
+    &__user-stat-label {
+        font-weight: normal;
+        font-size: 12px;
+        color: var(--text-secondary, #b3b3b3);
+    }
+
+    &__section {
+        margin-top: 40px;
+    }
+
+
+    /*ARTIST SECTION*/
+
+    @include md-max {
+        --section-content-columns: repeat(3, 1fr);
+    }
+
+    @include lg {
+        --section-content-columns: repeat(5, 1fr);
+    }
+
+    @include xl {
+        --section-content-columns: repeat(10, 1fr);
+    }
+
+    &__section-content {
+        display: grid;
+        grid-template-columns: var(--section-content-columns, repeat(5, auto));
+        gap: 30px;
+    }
+
+    &__section-header {
+        display: flex;
+        place-content: end space-between;
+        align-items: center;
+    }
+
+    &__section-show-more {
+        font-size: 15px;
+        font-weight: 700;
+        color: #b3b3b3;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__artist-image {
+        --user-image-size: 75px;
+    }
+
+    &__artist-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        text-align: center;
+    }
+
+
+
+    /*Tracks section*/
+    &__tracks-image {
+        --user-image-size: 60px;
+        --user-image-border-radius: 5px;
+    }
+
+    &__track-card {
+        // display: flex;
+        // flex-direction: row;
+        display: grid;
+        grid-template-columns: 1fr 1fr minmax(100px, 150px);
+        align-items: center;
+        gap: 10px;
+        padding: 10px 25px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgb(24, 24, 24);
+            border-radius: 5px;
+        }
+
+        @include md-max {
+            padding: 10px 0px;
+        }
+
+        @include sm-max {
+            grid-template-columns: 1fr minmax(30px, 50px);
+        }
+    }
+
+    &__track-card-left {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    &__track-content {
+
+        grid-template-columns: 1fr !important;
+        row-gap: 0;
+    }
+
+    &__tracks-details {
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        place-content: center;
+        gap: 5px;
+
+    }
+
+    &__track-name {
+        font-size: 16px !important;
+        color: #fff !important;
+
+    }
+
+    &__album-name {
+        @include sm-max {
+            display: none;
+        }
+    }
+
+    /*SHARED*/
+    &__artist-name,
+    &__album-name,
+    &__track-name,
+    &__track-duration {
+        font-size: 14px;
+        font-weight: 600;
+        margin: 0;
+        color: #b3b3b3
+    }
 }

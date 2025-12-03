@@ -122,44 +122,38 @@
 
     /*Tracks section*/
     &__tracks-image {
-        --user-image-size: 60px;
+        --user-image-size: 250px;
         --user-image-border-radius: 5px;
+        margin-bottom: 15px;
+
+        @include md-max {
+            --user-image-size: 150px;
+        }
     }
 
     &__track-card {
-        // display: flex;
-        // flex-direction: row;
-        display: grid;
-        grid-template-columns: 1fr 1fr minmax(100px, 150px);
+        display: flex;
+        flex-direction: column;
+
         align-items: center;
-        gap: 10px;
-        padding: 10px 25px;
+        gap: 3px;
         cursor: pointer;
+        flex: 1 1 20%;
+
+        margin-bottom: 20px;
 
         &:hover {
-            background-color: rgb(24, 24, 24);
             border-radius: 5px;
         }
 
-        @include md-max {
-            padding: 10px 0px;
-        }
-
-        @include sm-max {
-            grid-template-columns: 1fr minmax(30px, 50px);
-        }
     }
 
-    &__track-card-left {
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-    }
 
     &__track-content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0px !important;
 
-        grid-template-columns: 1fr !important;
-        row-gap: 0;
     }
 
     &__tracks-details {
@@ -171,26 +165,28 @@
 
     }
 
-    &__track-name {
-        font-size: 16px !important;
-        color: #fff !important;
-
-    }
 
     &__album-name {
-        @include sm-max {
-            display: none;
-        }
+        font-size: 16px !important;
+        color: #fff !important;
+        text-align: center;
     }
+
 
     /*SHARED*/
     &__artist-name,
     &__album-name,
     &__track-name,
-    &__track-duration {
+    &__track-total {
         font-size: 14px;
         font-weight: 600;
         margin: 0;
         color: #b3b3b3
+    }
+
+    &__track-total {
+        font-size: 12px !important;
+        text-transform: uppercase;
+        font-weight: normal !important;
     }
 }

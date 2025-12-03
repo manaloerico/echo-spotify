@@ -1,5 +1,48 @@
-:host {
-    p {
-        margin: 0;
-    }
-}
+ @import '../../../themes/mixins.scss';
+
+ :host {
+     &.active {
+
+         .nav__item {
+             @include md-max {
+                 --border-left-active-color: none;
+                 --border-bottom-active-color: var(--spotify-green, green);
+             }
+
+             border-left-color: var(--border-left-active-color, var(--spotify-green, green));
+             background-color: rgb(24, 24, 24);
+             border-bottom-color: var(--border-bottom-active-color, none);
+         }
+     }
+ }
+
+ .nav {
+     @include md-max {}
+
+     &__item {
+         margin: 0;
+         padding: 15px 0px;
+         cursor: pointer;
+         align-content: center;
+         text-align: center;
+         height: var(--nav-item-height, 60px);
+         font-size: 13px;
+         border-left: var(--nav-item-border-left, 3px solid transparent);
+         border-bottom: var(--nav-item-border-bottom, none);
+         box-sizing: border-box;
+
+         &:hover {
+             border-left: var(--nav-item-border-left, 3px solid var(--spotify-green, green));
+             background-color: rgb(24, 24, 24);
+             border-bottom-color: var(--nav-item-hover-border-bottom-color, transparent);
+         }
+
+         @include md-max {
+             --nav-item-height: 100%;
+             --nav-item-border-left: none;
+             --nav-item-border-bottom: 3px solid transparent;
+             --nav-item-hover-border-bottom-color: var(--spotify-green, green);
+         }
+
+     }
+ }

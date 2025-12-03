@@ -1,10 +1,72 @@
-<p>profile works!</p>
+<div class="page">
+    <div class="page__header">
+        <div class="page__user-image-container">
+            <img class="page__user-image profile-image" [src]="profileData?.images[0]?.url" alt="Profile Image"
+                [width]="profileData?.images[0]?.width" [height]="profileData?.images[0]?.height" />
+        </div>
+        <div class="page__user-details">
+            <h1>{{profileData?.display_name}}</h1>
 
-<img [src]="profileData?.images[0]?.url" alt="Profile Image" [width]="profileData?.images[0]?.width"
-    [height]="profileData?.images[0]?.height" />
-{{profileData?.display_name}}
-Followers: {{profileData?.followers?.total}}<br />
-Following: {{followData?.artists?.total}}<br />
-PlayList: {{playListData?.total}}
+            <div class="page__user-stats">
+                <div class="page__user-stat">
+                    <span>{{profileData?.followers?.total || 0}}</span>
+                    <div class="page__user-stat-label">Followers</div>
+                </div>
+                <div class="page__user-stat">
+                    <span>{{followData?.artists?.total || 0}}</span>
+                    <div class="page__user-stat-label">Following</div>
+                </div>
+                <div class="page__user-stat">
+                    <span>{{playListData?.total || 0}}</span>
+                    <div class="page__user-stat-label">PlayList</div>
+                </div>
+            </div>
+            <sptfy-button label="logout"></sptfy-button>
+        </div>
+    </div>
 
-<div class="a"></div>
+    <div class="page__content">
+        <div class="page__section">
+            <div class="page__section-header">
+                <h2>Top artist this month</h2>
+                <a href="#" class="page__section-show-more">Show more</a>
+            </div>
+            <div class="page__section-content">
+                <ng-container *ngFor="let artist of topArtist?.items">
+                    <div class="page__artist-card">
+                        <img class="page__artist-image profile-image" [src]="artist?.images.at(-1)?.url"
+                            [alt]="artist.name" [width]="artist?.images.at(-1)?.width"
+                            [height]="artist?.images.at(-1)?.height" />
+                        <p class="page__artist-name">{{artist.name}}</p>
+
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+        <div class="page__section">
+            <div class="page__section-header">
+                <h2>Top tracks this month</h2>
+                <a href="#" class="page__section-show-more">Show more</a>
+            </div>
+            <div class="page__section-content page__track-content">
+                <ng-container *ngFor="let tracks of topTracks?.items">
+                    <div class="page__track-card">
+                        <div class="page__track-card-left">
+                            <img class="page__tracks-image profile-image" [src]="tracks?.album.images.at(-1)?.url"
+                                [alt]="tracks.name" />
+                            <div class="page__tracks-details">
+                                <p class="page__track-name">{{tracks.name}}</p>
+                                <p class="page__artist-name">{{tracks.artists.at(0).name}}</p>
+
+                            </div>
+                        </div>
+                        <p class="page__album-name">{{tracks.album?.name}}</p>
+
+                        <p class="page__track-duration">{{tracks.duration_ms | durationInMinutes}}</p>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

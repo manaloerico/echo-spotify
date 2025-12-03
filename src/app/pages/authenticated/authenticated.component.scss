@@ -1,81 +1,45 @@
-// :host {
-//     display: block;
-//     height: 100vh;
-//     margin: 0;
-// }
-
-// .app {
-//     &__container {
-//         display: flex;
-//         flex-direction: row;
-//         padding: 20px;
-//         height: 100vh;
-//         gap: 10px;
-//         overflow: hidden;
-//     }
-
-//     &__nav-container {
-//         flex: 0 1 auto;
-//         position: sticky;
-//         top: 0;
-//         height: calc(100vh - 0px);
-//         /* adjust if you have padding/margin */
-//         box-sizing: border-box;
-//         overflow: hidden;
-//     }
-
-//     &__main-container {
-//         flex: 8 1 auto;
-//         height: 100vh;
-//         padding: 20px;
-//         border-radius: 8px;
-//         background-color: var(--nav-gray);
-//         overflow-y: auto;
-//     }
-
-//     &__nav {
-//         display: block;
-//         height: 100%;
-//     }
-// }
-
-/* Ensure body/html use full height */
-html,
-body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: var(--main-bg, #121212);
-    font-family: 'SpotifyCircular', sans-serif;
-}
+@import '../../ui/themes/mixins';
 
 :host {
     display: block;
     height: 100vh;
-    /* full viewport height */
 }
 
 .app__container {
     display: flex;
     flex-direction: row;
-    height: 100%;
-    padding: 20px;
-    gap: 10px;
+    height: 100vh;
+    padding: 15px;
+    gap: 15px;
     box-sizing: border-box;
+
+    @include md-max {
+        flex-direction: column;
+        padding: 0px;
+        gap: 0px;
+    }
+
 }
 
 .app__nav-container {
-    position: sticky;
-    top: 20px;
-    bottom: 20px;
-    left: 20px;
+    display: flex;
+    flex-direction: column;
     background-color: var(--nav-gray, #181818);
     border-radius: 12px;
-    box-sizing: border-box;
+    flex-shrink: 0;
+    order: 1;
+
+    @include md-max {
+        order: 2;
+    }
 }
 
 .app_nav {
     height: 100%;
+
+    @include md-max {
+        height: auto;
+    }
 }
 
 .app__nav a {
@@ -89,17 +53,19 @@ body {
 }
 
 .app__main-container {
-    //margin-left: 100px;
-    /* sidebar width + spacing */
     flex: 1;
-    height: calc(100vh - 40px);
-    /* full height minus container padding */
-    background-color: var(--main-bg, #121212);
     border-radius: 12px;
-    padding: 20px;
+    padding: 25px;
     overflow-y: auto;
-    /* scrollable main content */
     box-sizing: border-box;
+    background: linear-gradient(to top, #000000, var(--main-bg, #121212));
+    order: 2;
+
+    scroll-behavior: smooth;
+
+    @include md-max {
+        order: 1;
+    }
 }
 
 

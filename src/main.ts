@@ -6,7 +6,7 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withHashLocation } from '@angular/router';
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
 import { SpotifyInterceptorService } from './core/interceptor/spotify-interceptor.service';
@@ -15,7 +15,7 @@ import { SpotifyInterceptorService } from './core/interceptor/spotify-intercepto
 bootstrapApplication(AppComponent, {
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
-    provideRouter(routes),
+    provideRouter(routes, withHashLocation()),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: SpotifyInterceptorService,
