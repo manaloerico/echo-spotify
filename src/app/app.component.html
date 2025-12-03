@@ -1,3 +1,24 @@
-<input type="text" [formControl]="searchControl" placeholder="Search for songs, artists, albums..." />
+<!-- <button (click)="loginWithSpotify()">Login with Spotify</button>
 
+
+<input type="text" [formControl]="searchControl" placeholder="Search for songs, artists, albums..." />
+<button (click)="getRecommendations()">Get Recommendations</button>
+<div *ngFor="let item of results" (click)="onSelect(item)" style="cursor: pointer; margin: 10px 0;">
+
+    <img *ngIf="item.album?.images?.length" [src]="item.album.images[0].url" width="50" />
+    <span>{{ item.name}} - {{item.id}}</span>
+</div>
+
+
+<div *ngFor="let track of trackInp">
+    {{track}}
+</div>
+<div *ngIf="playlists">
+    <h2>Recommended Playlists</h2>
+    <div *ngFor="let playlist of playlists">
+        <h3>{{ playlist.name }}</h3>
+        <p>{{ playlist.description }}</p>
+        <img *ngIf="playlist.images?.length" [src]="playlist.images[0].url" width="100" />
+        <a [href]="playlist.external_urls.spotify" target="_blank">Open in Spotify</a>
+    </div> -->
 <router-outlet></router-outlet>

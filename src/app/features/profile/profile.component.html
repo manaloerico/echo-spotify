@@ -1,0 +1,10 @@
+<p>profile works!</p>
+
+<img [src]="profileData?.images[0]?.url" alt="Profile Image" [width]="profileData?.images[0]?.width"
+    [height]="profileData?.images[0]?.height" />
+{{profileData?.display_name}}
+Followers: {{profileData?.followers?.total}}<br />
+Following: {{followData?.artists?.total}}<br />
+PlayList: {{playListData?.total}}
+
+<div class="a"></div>

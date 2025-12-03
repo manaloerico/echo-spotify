@@ -1,70 +1,54 @@
+import OpenAI from 'openai';
+
+const openai = new OpenAI({ apiKey: process.env['OPENAI_API_KEY']! });
+
 export const config = { runtime: 'edge' };
 
-async function getAccessToken() {
-  const res = await fetch(
-    `${
-      process.env['VERCEL_URL'] || 'https://echo-spotify.vercel.app'
-    }/api/spotify`
-  );
-  const data = await res.json();
-  return data.access_token;
-}
-
-export default async function handler(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const titles = searchParams.get('titles'); // comma-separated song names
-  if (!titles) {
-    return new Response(JSON.stringify({ error: 'Missing song titles' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
+export default async function handler(req: any) {
+  if (req.method !== 'POST') {
+    return new Response(JSON.stringify({ error: 'Method Not Allowed' }), {
+      status: 405,
     });
   }
 
   try {
-    const token = await getAccessToken();
-    const titleList = titles
-      .split(',')
-      .map((t) => t.trim())
-      .slice(0, 5); // Spotify only allows up to 5 seeds
-    const trackIds: string[] = [];
+    const body = await req.json();
+    const { songs } = body;
 
-    for (const title of titleList) {
-      const searchRes = await fetch(
-        `https://api.spotify.com/v1/search?q=${encodeURIComponent(
-          title
-        )}&type=track&limit=1`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      const searchData = await searchRes.json();
-      const track = searchData.tracks?.items?.[0];
-      if (track) trackIds.push(track.id);
+    if (!songs || songs.length === 0) {
+      return new Response(JSON.stringify({ error: 'No songs provided' }), {
+        status: 400,
+      });
     }
 
-    if (trackIds.length === 0) {
-      return new Response(
-        JSON.stringify({ error: 'No matching songs found' }),
+    const aiResponse = await openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages: [
         {
-          status: 404,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-    }
+          role: 'system',
+          content: 'You are a music recommendation assistant.',
+        },
+        {
+          role: 'user',
+          content: `Suggest a playlist based on these songs: ${songs.join(
+            ', '
+          )}. Return JSON.`,
+        },
+      ],
+    });
 
-    const recRes = await fetch(
-      `https://api.spotify.com/v1/recommendations?seed_tracks=${trackIds.join(
-        ','
-      )}`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    const data = await recRes.json();
+    const suggestionsText = aiResponse.choices[0].message.content;
+    const suggestions = JSON.parse(suggestionsText);
 
-    return new Response(JSON.stringify(data), {
+    return new Response(JSON.stringify({ suggestions }), {
+      status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
-  } catch (err: any) {
+  } catch (error) {
+    console.error(error);
     return new Response(
-      JSON.stringify({ error: err.message || 'Internal Server Error' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
+      JSON.stringify({ error: 'Failed to generate playlist' }),
+      { status: 500 }
     );
   }
 }

@@ -7,12 +7,12 @@ let tokenExpiry = 0;
 
 async function getAccessToken() {
   const now = Date.now();
-  if (accessToken && now < tokenExpiry) return accessToken;
+  //if (accessToken && now < tokenExpiry) return accessToken;
 
   const clientId = process.env['SPOTIFY_CLIENT_ID']!;
   const clientSecret = process.env['SPOTIFY_CLIENT_SECRET']!;
   const creds = btoa(`${clientId}:${clientSecret}`);
-
+  console.log('Spotify creds:', creds, clientId, clientSecret);
   const response = await fetch('https://accounts.spotify.com/api/token', {
     method: 'POST',
     headers: {

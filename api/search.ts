@@ -19,21 +19,19 @@ export default async function handler(req: Request) {
   }
 
   try {
-    const token = await getAccessToken();
-
-    // Example Spotify search
+    const authHeader = req.headers.get('authorization');
     const result = await fetch(
       `https://api.spotify.com/v1/search?q=${encodeURIComponent(
         q
       )}&type=track&limit=10`,
       {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: authHeader },
       }
     );
 
     const data = await result.json();
-
-    return new Response(JSON.stringify(data.tracks.items), {
+    console.log('Spotify Search Results:', data);
+    return new Response(JSON.stringify(data.tracks?.items), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });

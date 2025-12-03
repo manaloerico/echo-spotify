@@ -4,10 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:proxy": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:prod": "ng build --configuration production"
+    "build:prod": "ng build --configuration production --base-href /",
+    "clean": "rimraf node_modules package-lock.json && npm install --save --save-exact --verbose"
   },
   "private": true,
   "dependencies": {
@@ -19,7 +21,9 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
+    "ngrok": "^5.0.0-beta.2",
     "node-fetch": "^3.3.2",
+    "openai": "^6.3.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"

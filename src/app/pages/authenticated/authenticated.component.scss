@@ -1,0 +1,135 @@
+// :host {
+//     display: block;
+//     height: 100vh;
+//     margin: 0;
+// }
+
+// .app {
+//     &__container {
+//         display: flex;
+//         flex-direction: row;
+//         padding: 20px;
+//         height: 100vh;
+//         gap: 10px;
+//         overflow: hidden;
+//     }
+
+//     &__nav-container {
+//         flex: 0 1 auto;
+//         position: sticky;
+//         top: 0;
+//         height: calc(100vh - 0px);
+//         /* adjust if you have padding/margin */
+//         box-sizing: border-box;
+//         overflow: hidden;
+//     }
+
+//     &__main-container {
+//         flex: 8 1 auto;
+//         height: 100vh;
+//         padding: 20px;
+//         border-radius: 8px;
+//         background-color: var(--nav-gray);
+//         overflow-y: auto;
+//     }
+
+//     &__nav {
+//         display: block;
+//         height: 100%;
+//     }
+// }
+
+/* Ensure body/html use full height */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--main-bg, #121212);
+    font-family: 'SpotifyCircular', sans-serif;
+}
+
+:host {
+    display: block;
+    height: 100vh;
+    /* full viewport height */
+}
+
+.app__container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    padding: 20px;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+.app__nav-container {
+    position: sticky;
+    top: 20px;
+    bottom: 20px;
+    left: 20px;
+    background-color: var(--nav-gray, #181818);
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.app_nav {
+    height: 100%;
+}
+
+.app__nav a {
+    color: var(--text-color, #fff);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.app__nav a.active {
+    color: var(--primary-color, #1DB954);
+}
+
+.app__main-container {
+    //margin-left: 100px;
+    /* sidebar width + spacing */
+    flex: 1;
+    height: calc(100vh - 40px);
+    /* full height minus container padding */
+    background-color: var(--main-bg, #121212);
+    border-radius: 12px;
+    padding: 20px;
+    overflow-y: auto;
+    /* scrollable main content */
+    box-sizing: border-box;
+}
+
+
+/* Webkit browsers */
+.app__main-container::-webkit-scrollbar {
+    width: 8px;
+    /* scrollbar width */
+}
+
+.app__main-container::-webkit-scrollbar-track {
+    background: transparent;
+    /* so it follows the rounded container */
+    border-radius: 12px;
+}
+
+.app__main-container::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    border: 2px solid transparent;
+    /* creates spacing inside track */
+    background-clip: content-box;
+    /* ensures thumb respects border-radius */
+}
+
+.app__main-container::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Firefox */
+.app__main-container {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}

@@ -1,5 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { RouterOutlet } from '@angular/router';
 import { debounceTime, switchMap } from 'rxjs';
 import { SpotifyService } from 'src/core/service/spotify.service';
 
@@ -7,16 +9,18 @@ import { SpotifyService } from 'src/core/service/spotify.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterOutlet],
 })
 export class AppComponent implements OnInit {
+  onSelect(_t8: any) {
+    this.trackInp.push(_t8.name);
+  }
   searchControl = new FormControl('');
   results: any[] = [];
+  playlists: any;
   constructor(private spotifyService: SpotifyService) {}
   ngOnInit(): void {
-    this.spotifyService.getToken().subscribe((data) => {
-      console.log(data);
-    });
-
     this.searchControl.valueChanges
       .pipe(
         debounceTime(500),
@@ -28,10 +32,21 @@ export class AppComponent implements OnInit {
       });
   }
   title = 'echo-spotify';
+  trackInput = '';
+  candidatePlaylists = [
+    '37i9dQZF1DXcBWIGoYBM5M', // Example playlist IDs
+    '37i9dQZF1DX0XUsuxWHRQd',
+    '37i9dQZF1DX4JAvHpjipBk',
+  ];
+  trackInp: any = [];
+  getRecommendations() {
+    const trackIds = this.trackInput.split(',').map((t) => t.trim());
+    this.spotifyService
+      .recommendation(this.trackInp, this.candidatePlaylists)
+      .subscribe((res) => (this.playlists = res));
+  }
 
-  onSearch(event: any) {
-    const query = event.target.value;
-    console.log('Search query:', query);
-    // Implement search functionality here, e.g., call a search API
+  loginWithSpotify() {
+    window.location.href = 'http://localhost:3000/api/authorize';
   }
 }

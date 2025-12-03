@@ -1,0 +1,23 @@
+/* src/styles/theme.scss */
+
+:root {
+    // --bg-color: rgb(24, 24, 24);
+    --bg-color: #000;
+    --text-color: #ffffff;
+    --text-secondary: #b3b3b3;
+    --primary-color: #1DB954;
+    --primary-hover: #1ED760;
+    --divider-color: #282828;
+    --nav-gray: #121212;
+
+    --font-family: 'SpotifyCircular', sans-serif;
+
+    --border-radius: 8px;
+}
+
+/* optional component styles */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+}
